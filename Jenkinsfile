@@ -2,23 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building and compiling the source code...'
-                sh 'echo "Status: Build Complete - Version 1.0.0 (Stable)" > app-output.txt'
+                // This builds the image from your Dockerfile
+                sh 'docker build -t my-web-app .'
             }
         }
-        stage('Test') {
+        stage('Deploy Container') {
             steps {
-                echo 'Running unit tests...'
-                sh 'echo "Status: Tests Passed Successfully!" >> app-output.txt'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-                sh 'echo "Status: Deployed to Production!" >> app-output.txt'
-                archiveArtifacts artifacts: 'app-output.txt', fingerprint: true
+                // Remove existing container if it exists
+                sh 'docker rm -f web-server || true'
+                // Run the new container on port 8090
+                sh 'docker run -d -p 8090:80 --name web-server my-web-app'
             }
         }
     }
