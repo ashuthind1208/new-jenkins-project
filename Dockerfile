@@ -1,4 +1,3 @@
-FROM --platform=arm64
 # Use the official Node.js 18 image as the base image
 FROM node:18    
 WORKDIR /app
