@@ -1,7 +1,7 @@
 pipeline {
     agent any
     triggers {
-        githubPush() // This explicitly enables the GitHub hook for this
+        githubPush() // This explicitly enables the GitHub hook for this pipeline, ensuring it runs on every push to the repository
     }
     stages {
         stage('Checkout Code') {
