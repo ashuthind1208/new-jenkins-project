@@ -1,22 +1,23 @@
 pipeline {
     agent any
-
-    //the stages start here. This will build the docker image and then run the container on port 8090
     stages {
+        stage('Checkout Code') {
+            steps {
+                // Delete everything including hidden files (like .git)
+                sh 'find . -maxdepth 1 -not -name "." -exec rm -rf {} +'
+                // Clone the fresh code
+                sh 'git clone https://github.com/ashuthind1208/new-jenkins-project .'
+            }
+        }
         stage('Build Docker Image') {
             steps {
-               // Remove existing image if it exists
-                sh 'docker rmi -f web-server || true'
-                // This builds the image from your Dockerfile
                 sh 'docker build -t my-web-app .'
             }
         }
         stage('Deploy Container') {
             steps {
-                // Remove existing container if it exists
                 sh 'docker rm -f web-server || true'
-                // Run the new container on port 8090
-                sh 'docker run -d -p 8090:80 --name web-server my-web-app'
+                sh 'docker run -d -p 3000:3000 --name web-server my-web-app'
             }
         }
     }
