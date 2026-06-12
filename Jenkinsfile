@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    //the stages start here
+    //the stages start here. This will build the docker image and then run the container on port 8090
     stages {
         stage('Build Docker Image') {
             steps {
