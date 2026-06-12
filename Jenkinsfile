@@ -4,6 +4,8 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
+               // Remove existing image if it exists
+                sh 'docker rmi -f web-server || true'
                 // This builds the image from your Dockerfile
                 sh 'docker build -t my-web-app .'
             }
