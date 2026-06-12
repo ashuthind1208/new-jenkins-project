@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                // Delete everything including hidden files in the current directory except the .git directory
+                // Delete everything including hidden files in the current
                 sh 'find . -maxdepth 1 -not -name "." -exec rm -rf {} +'
                 // Clone the fresh code
                 sh 'git clone https://github.com/ashuthind1208/new-jenkins-project .'
