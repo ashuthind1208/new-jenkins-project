@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        githubPush() // This explicitly enables the GitHub hook for this job
+    }
     stages {
         stage('Checkout Code') {
             steps {
